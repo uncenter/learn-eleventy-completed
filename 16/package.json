@@ -1,0 +1,17 @@
+{
+	"name": "eleventy-from-scratch",
+	"version": "1.0.0",
+	"description": "",
+	"main": ".eleventy.js",
+	"scripts": {
+		"start": "npx eleventy --serve"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@11ty/eleventy": "^2.0.1",
+		"@11ty/eleventy-fetch": "^5.1.0",
+		"moment": "^2.30.1"
+	}
+}
