@@ -1,6 +1,7 @@
 name: Generate Zips
 
 on:
+  workflow_dispatch:
   push:
     branches: [main, completed]
 
