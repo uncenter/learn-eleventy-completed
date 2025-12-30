@@ -1,3 +1,5 @@
+{% set assetHash = global.random() %}
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -5,6 +7,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		{% include "partials/meta-info.html" %}
 		<link rel="alternate" type="application/rss+xml" href="{{ site.url }}/feed.xml" />
+		<style>{% renderFile "./src/css/critical.scss" %}</style>
+
+		{# Add facility for pages to declare an array of critical styles #}
+		{% if pageCriticalStyles %}
+			{% for item in pageCriticalStyles %}
+				<style>{% renderFile "./src/css/" + item %}</style>
+			{% endfor %}
+		{% endif %}
+		<link rel="stylesheet" media="print" href="/fonts/fonts.css?{{ assetHash }}" onload="this.media='all'" />
+
+		{# Add facility for pages to declare an array of stylesheet paths #}
+		{% if pageStylesheets %}
+			{% for item in pageStylesheets %}
+				<link rel="stylesheet" media="print" href="{{ ("./src/css/" + item) | inputPathToUrl }}?{{ assetHash }}" onload="this.media='all'" />
+			{% endfor %}
+		{% endif %}
 	</head>
 	<body>
 		{% include "partials/site-head.html" %}
