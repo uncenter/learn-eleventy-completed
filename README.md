@@ -1,10 +1,11 @@
 # Learn Eleventy Completed
 
-This repository stores the completed versions of lessons from the [Learn Eleventy](https://learn-eleventy.pages.dev/) tutorial course.
+This repository stores the completed versions of lessons from the [Learn Eleventy](https://learn-eleventy.pages.dev/) tutorial course. Lesson archives are pushed to a [rolling release](https://github.com/uncenter/learn-eleventy-completed/releases/tag/rolling-release).
 
-## Contributing
+## Editing
 
 To edit a lesson:
+
 1. Check out the [`completed` branch](https://github.com/uncenter/learn-eleventy-completed/tree/completed).
 1. Obtain the commit hash for the commit *before* the commit for the lesson you want to change.
 1. In the editor, change `pick` to `edit` for the target lesson commit.
