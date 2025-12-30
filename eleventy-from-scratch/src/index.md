@@ -1,5 +1,6 @@
 ---
 title: 'Issue 33'
+metaDesc: 'A made up agency site that you build if you follow the Learn Eleventy course'
 layout: 'layouts/home.html'
 intro:
   eyebrow: 'Digital Marketing is our'
