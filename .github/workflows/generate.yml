@@ -34,7 +34,6 @@ jobs:
           done
 
       - name: Upload release artifacts
-        run: gh release upload --clobber $RELEASE_ID zips/*.zip
+        run: gh release upload --clobber rolling-release zips/*.zip
         env:
-          RELEASE_ID: completed-zips
           GH_TOKEN: ${{ github.token }}
