@@ -1,8 +1,12 @@
 import rssPlugin from '@11ty/eleventy-plugin-rss';
+import { RenderPlugin } from "@11ty/eleventy";
 
 // Filters
 import { dateFilter } from './src/filters/date-filter.js';
 import { w3DateFilter } from './src/filters/w3-date-filter.js';
+
+import path from 'node:path';
+import * as sass from 'sass';
 
 export default function (eleventyConfig) {
 	eleventyConfig.setInputDirectory('src');
@@ -17,6 +21,33 @@ export default function (eleventyConfig) {
 
 	// Plugins
 	eleventyConfig.addPlugin(rssPlugin);
+	eleventyConfig.addPlugin(RenderPlugin);
+
+	eleventyConfig.addExtension('scss', {
+		outputFileExtension: 'css',
+		useLayouts: false,
+		compile: async function (inputContent, inputPath) {
+			let parsed = path.parse(inputPath);
+			// Don’t compile file names that start with an underscore
+			if (parsed.name.startsWith('_')) {
+				return;
+			}
+
+			const compiled = sass.compileString(inputContent, {
+				loadPaths: [parsed.dir || '.', this.config.dir.includes],
+				silenceDeprecations: ['import', 'global-builtin', 'slash-div']
+			});
+
+			// Map dependencies for incremental builds
+			this.addDependencies(inputPath, compiled.loadedUrls);
+
+			return async (data) => {
+				return compiled.css;
+			};
+		},
+	});
+
+	eleventyConfig.addTemplateFormats('scss');
 
 	// Returns work items, sorted by display order
 	eleventyConfig.addCollection('work', (collection) => {
