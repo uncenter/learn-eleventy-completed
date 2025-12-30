@@ -1,5 +1,6 @@
 import rssPlugin from '@11ty/eleventy-plugin-rss';
 import { RenderPlugin } from "@11ty/eleventy";
+import { eleventyImageTransformPlugin } from '@11ty/eleventy-img';
 
 // Filters
 import { dateFilter } from './src/filters/date-filter.js';
@@ -17,12 +18,12 @@ export default function (eleventyConfig) {
 	eleventyConfig.addFilter('w3DateFilter', w3DateFilter);
 
 	// Set directories to pass through to the dist folder
-	eleventyConfig.addPassthroughCopy('src/images');
 	eleventyConfig.addPassthroughCopy('src/fonts');
 
 	// Plugins
 	eleventyConfig.addPlugin(rssPlugin);
 	eleventyConfig.addPlugin(RenderPlugin);
+	eleventyConfig.addPlugin(eleventyImageTransformPlugin);
 
 	eleventyConfig.addExtension('scss', {
 		outputFileExtension: 'css',
