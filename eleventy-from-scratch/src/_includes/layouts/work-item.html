@@ -1,5 +1,7 @@
 {% extends "layouts/base.html" %}
 
+{% set pageCriticalStyles = ['work-item.scss'] %}
+
 {% set peopleItems = helpers.filterCollectionByKeys(collections.people, team) %}
 
 {% block content %}
