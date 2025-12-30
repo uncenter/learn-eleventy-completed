@@ -1,6 +1,14 @@
+// Filters
+import { dateFilter } from './src/filters/date-filter.js';
+import { w3DateFilter } from './src/filters/w3-date-filter.js';
+
 export default function (eleventyConfig) {
 	eleventyConfig.setInputDirectory('src');
 	eleventyConfig.setOutputDirectory('dist');
+
+	// Add filters
+	eleventyConfig.addFilter('dateFilter', dateFilter);
+	eleventyConfig.addFilter('w3DateFilter', w3DateFilter);
 
 	// Set directories to pass through to the dist folder
 	eleventyConfig.addPassthroughCopy('src/images');
