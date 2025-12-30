@@ -24,6 +24,7 @@ export default function (eleventyConfig) {
 
 	// Set directories to pass through to the dist folder
 	eleventyConfig.addPassthroughCopy('src/fonts');
+	eleventyConfig.addPassthroughCopy('src/images/meta');
 
 	// Plugins
 	eleventyConfig.addPlugin(rssPlugin);
