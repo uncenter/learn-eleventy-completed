@@ -8,6 +8,11 @@ import { w3DateFilter } from './src/filters/w3-date-filter.js';
 
 import path from 'node:path';
 import * as sass from 'sass';
+import htmlmin from 'html-minifier-next';
+import postcss from 'postcss';
+import cssnano from 'cssnano';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 export default function (eleventyConfig) {
 	eleventyConfig.setInputDirectory('src');
@@ -40,16 +45,37 @@ export default function (eleventyConfig) {
 				silenceDeprecations: ['import', 'global-builtin', 'slash-div']
 			});
 
+			let result = compiled.css;
+			if (isProduction) {
+				const minified = await postcss([cssnano]).process(compiled.css, {
+					from: undefined,
+				});
+				result = minified.content;
+			}
+
 			// Map dependencies for incremental builds
 			this.addDependencies(inputPath, compiled.loadedUrls);
 
 			return async (data) => {
-				return compiled.css;
+				return result;
 			};
 		},
 	});
 
 	eleventyConfig.addTemplateFormats('scss');
+
+	if (isProduction) {
+		eleventyConfig.addTransform('htmlmin', function (content) {
+			if ((this.page.outputPath || '').endsWith('.html')) {
+				return htmlmin.minify(content, {
+					useShortDoctype: true,
+					removeComments: true,
+					collapseWhitespace: true,
+				});
+			}
+			return content;
+		});
+	}
 
 	// Returns work items, sorted by display order
 	eleventyConfig.addCollection('work', (collection) => {

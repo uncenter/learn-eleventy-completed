@@ -1,7 +1,8 @@
 {
 	"scripts": {
 		"start": "eleventy --serve",
-		"build": "eleventy"
+		"build": "eleventy",
+		"production": "NODE_ENV=production npm run build"
 	},
 	"type": "module",
 	"dependencies": {
@@ -9,7 +10,10 @@
 		"@11ty/eleventy-fetch": "^5.1.1",
 		"@11ty/eleventy-img": "^6.0.4",
 		"@11ty/eleventy-plugin-rss": "^1.2.0",
+		"cssnano": "^7.1.2",
+		"html-minifier-next": "^4.16.3",
 		"luxon": "^3.7.2",
+		"postcss": "^8.5.6",
 		"sass": "^1.97.1"
 	}
 }
